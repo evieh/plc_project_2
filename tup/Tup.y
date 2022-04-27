@@ -3,7 +3,7 @@
     import Tokens
 }
 
-%name parsePir
+%name parseTup
 %tokentype { Token }
 %error { parseError }
 
