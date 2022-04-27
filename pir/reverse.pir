@@ -12,7 +12,7 @@ app(l1,l2) {
   }
 }
 
---have the second input as 
+-- have the second input as a list that holds the reversed list
 rev(l1,l2){
   if null?(l1.2) {
     return l1.1;
