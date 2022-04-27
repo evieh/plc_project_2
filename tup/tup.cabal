@@ -14,7 +14,7 @@ cabal-version:       >=1.10
 executable Main
   main-is:             Main.hs
   build-tools:         alex,happy
-  other-modules:       Tokens,Tup
+  other-modules:       Tokens,Tup,Tup_Y
   build-depends:       array >= 0.5.1.0,
                        array >= 0.5.1.0,
                        base >=4.8,
