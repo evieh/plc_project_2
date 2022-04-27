@@ -9,7 +9,7 @@ tokens :-
   $eol                            { \s -> TupEndl }
   $white+                         ;
   [a-z][a-z0-9]*                  { \s -> TupLabel s }
-  [0-9]+                          { \s -> TupInt s }
+  [0-9]+                          { \s -> TupInt (read s) }
   \(                              { \s -> TupLParen }
   \)                              { \s -> TupRParen }
   \,                              { \s -> TupComma }
