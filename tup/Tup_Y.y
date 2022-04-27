@@ -1,9 +1,10 @@
 {
-    module Tup where
+    module Tup_Y where
     import Tokens
+    import Tup
 }
 
-%name parsePir
+%name parseTup
 %tokentype { Token }
 %error { parseError }
 
@@ -17,7 +18,7 @@
 %%
 
 -- replace this with your productions:
--- Tp
+Tup : { Unit }
 -- : '(' ')'       { Unit }
 -- | '(' Tp ')'    { $2 }
 -- | Tp '->' Tp    { Arrow $1 $3 }
