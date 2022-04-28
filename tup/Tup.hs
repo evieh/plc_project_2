@@ -21,4 +21,11 @@ data Null = Null
 data Operator = Add | Sub | Mul
     deriving (Eq, Ord, Show)
 
+data FuncDecLine = FuncDecLine Var [Pattern] Expression Expression
+
+type FuncDec = [FuncDecLine]
+
+data FuncTest = FuncTest Var [Expression] Expression
+
+
 
