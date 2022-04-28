@@ -6,7 +6,7 @@ module Tokens where
 
 tokens :-
 
-  $eol                            { \s -> TupEndl }
+  [\n]                            { \s -> TupEndl }
   $white+                         ;
   [a-z][a-z0-9]*                  { \s -> TupLabel s }
   [0-9]+                          { \s -> TupInt (read s) }
