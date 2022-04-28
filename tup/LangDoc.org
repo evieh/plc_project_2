@@ -16,17 +16,23 @@
 
 * Productions
 
-| name      | token series       | haskell call |
-|-----------+--------------------+--------------|
-| Prog      | FuncDec '!' Prog   | $1 : $3      |
-| Prog      | FuncTest           | [$1]         |
-| Prog      |                    | [ ]          |
-| ListInner | Call ',' ListInner | $1 : $3      |
-| ListInner | Call               | [$1]         |
-| ListInner |                    | [ ]          |
-| Call      | '(' ListInner ')'  | $2           |
-| Call      | ...                |              |
-| FuncDec   |                    |              |
+| name        | token series                        | haskell call |
+|-------------+-------------------------------------+--------------|
+| Prog        | FuncDec '\n' '!' '\n' Prog          | $1 : $5      |
+| Prog        | FuncTest                            | [$1]         |
+| Prog        |                                     | [ ]          |
+| Pattern     | '(' VarTupInner ')'                 | $2           |
+| Pattern     | ...                                 |              |
+| PatternList | Pattern PatternList                 | $1 : $2      |
+| PatternList | Pattern                             | [$1]         |
+| PatternList |                                     | [ ]          |
+| FuncDecLine | id PatternList (pipe) Expr '=' Expr |              |
+| FuncDec     |                                     |              |
+| FuncTest    | Expr '=' Expr                       |              |
+| VarTupInner | id ',' VarTupInner                  | $1 : $3      |
+| VarTupInner | id                                  | [$1]         |
+| VarTupInner |                                     | [ ]          |
+| FuncDec     |                                     |              |
 
 
 * Notes
