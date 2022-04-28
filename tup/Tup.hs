@@ -25,6 +25,8 @@ data FuncDecLine = FuncDecLine Var [Pattern] Expression Expression
 
 type FuncDec = [FuncDecLine]
 
+data Prog = Prog [FuncDec] FuncTest
+
 data FuncTest = FuncTest Var [Expression] Expression
 
 
