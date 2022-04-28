@@ -1,0 +1,39 @@
+#+TITLE: Lang Doc
+
+* Tokens
+| token          | meaning   |
+|----------------+-----------|
+| [a-z][a-z0-9]* | TupLabel  |
+| [0-9]+         | TupInt    |
+| #              | TupNull   |
+| =              | TupEquals |
+| !              | TupExclam |
+| ,              | TupComma  |
+| (              | TupLParen |
+| )              | TupRParen |
+| (pipe)         | TupGuard  |
+| $eol           | TupEndl   |
+
+* Productions
+
+| name      | token series       | haskell call |
+|-----------+--------------------+--------------|
+| Prog      | FuncDec '!' Prog   | $1 : $3      |
+| Prog      | FuncTest           | [$1]         |
+| Prog      |                    | [ ]          |
+| ListInner | Call ',' ListInner | $1 : $3      |
+| ListInner | Call               | [$1]         |
+| ListInner |                    | [ ]          |
+| Call      | '(' ListInner ')'  | $2           |
+| Call      | ...                |              |
+| FuncDec   |                    |              |
+
+
+* Notes
+
+-- Whitespace insensitive
+$eol                          ;
+$white+                       ;
+
+-- Comments
+"--".*                         ;
