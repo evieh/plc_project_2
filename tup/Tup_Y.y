@@ -9,19 +9,37 @@
 %error { parseError }
 
 %token
-    '('  { TokenLParen }
-    ')'  { TokenRParen }
-    '->'  { TokenArrow}
+    '#'             { TupNull }
+    '='             { TupEquals }
+    '!'             { TupExclam }
+    ','             { TupComma }
+    '('             { TupLParen }
+    ')'             { TupRParen }
+    '|'             { TupGuard }
+    id              { TokenID $$ }
 
-%right '->'
+    --'->'  { TokenArrow}
+--%right '->'
 
 %%
 
 -- replace this with your productions:
-Tup : { Unit }
--- : '(' ')'       { Unit }
--- | '(' Tp ')'    { $2 }
--- | Tp '->' Tp    { Arrow $1 $3 }
+Prog : FuncDec '\n' '!' '\n' Prog       { $1 : $5 }
+| FuncTest                              { [$1] }
+
+Pattern : '(' VarTupInner ')'           { $2 }
+
+PatternList : Pattern PatternList       { $1 : $2 }
+| Pattern                               { [$1] }
+
+FuncDecLine : id PatternList (pipe) Expr '=' Expr   { $1}
+
+--FuncDec :
+
+--FuncTest : Expr '=' Expr
+
+VarTupInner : id ',' VarTupInner        { $1 : $3 }
+| id                                    { [$1] }
 
 {
 
