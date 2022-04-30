@@ -29,24 +29,21 @@
 Prog : FuncDecs '\n' '!' '\n' FuncTest       { Prog $1 $5 }
 
 Pattern : '(' VarTupInner ')'           { $2 }
+        | VAR                           { Var $1 }
+        | '#'                           { Null }
 
 PatternList : Pattern PatternList       { $1 : $2 }
             | Pattern                   { [$1] }
             |                           { [] }
-
-FuncDecLine : id PatternList '|' Expr '=' Expr   { FuncDecLine $1 $2 $4 $6 }
-            | id PatternList '=' Expr            { FuncDecLine $1 $2 Null $4 }
-
---FuncDec :
 
 --FuncTest : Expr '=' Expr
 
 Expr : '(' Expr ')'                          { $2 }
      |
 
-VarTupInner : id ',' VarTupInner        { $1 : $3 }
-            | id                        { [$1] }
-            |                           { [] }
+VarTupInner : VAR ',' VarTupInner        { $1 : $3 }
+            | VAR                        { [$1] }
+            |                            { [] }
 
 FuncDecLine : VAR PatternList (pipe) Expr '=' Expr { FuncDecLine $1 $2 $4 $6   }
             | VAR PatternList '=' Expr             { FuncDecLine $1 $2 Null $4 }
