@@ -36,10 +36,6 @@ PatternList : Pattern PatternList       { $1 : $2 }
             | Pattern                   { [$1] }
             |                           { [] }
 
---FuncTest : Expr '=' Expr
-
-Expr : '(' Expr ')'                          { $2 }
-     |
 
 VarTupInner : VAR ',' VarTupInner        { $1 : $3 }
             | VAR                        { [$1] }
