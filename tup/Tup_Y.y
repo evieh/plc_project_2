@@ -17,7 +17,7 @@
     ')'             { TupRParen }
     '|'             { TupGuard }
     '\n'            { TupEndl }
-    id              { TokenID $$ }
+    id              { TupID $$ }
 
     --'->'  { TokenArrow}
 --%right '->'
@@ -35,16 +35,15 @@ PatternList : Pattern PatternList       { $1 : $2 }
 | Pattern                               { [$1] }
 |                                       { [] }
 
-<<<<<<< HEAD
-FuncDecLine : id PatternList '|' Expr '=' Expr   { $1 }
-=======
-FuncDecLine : id PatternList '|' Expr '=' Expr   { FuncDecLine $1 $2 $3 $4  }
-| id PatternList '=' Expr                        { FuncDecLine $1 $2 Null $4 }                            
->>>>>>> 2cbcbb4b9f6be519e00a4bfd7335d9b651ed5501
+FuncDecLine : id PatternList '|' Expr '=' Expr   { FuncDecLine $1 $2 $4 $6 }
+| id PatternList '=' Expr               { FuncDecLine $1 $2 Null $4 }                            
 
 --FuncDec :
 
 --FuncTest : Expr '=' Expr
+
+Expr : '(' Expr ')'                          { $2 }
+| 
 
 VarTupInner : id ',' VarTupInner        { $1 : $3 }
 | id                                    { [$1] }
