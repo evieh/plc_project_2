@@ -68,8 +68,8 @@ Oper : '+'                              { Add }
      | '*'                              { Mul }
      | '-'                              { Sub }
 
-ExprTupInner : VAR ',' ExprTupInner     { $1 : $3 }
-             | VAR                      { [$1] }
+ExprTupInner : Expr ',' ExprTupInner     { $1 : $3 }
+             | Expr                      { [$1] }
              |                          { [ ] }
 
 {
