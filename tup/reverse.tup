@@ -3,7 +3,7 @@ app # l2 = l2
 
 !
 
-rev (hd,tl) l2 = ()
+rev (hd,tl) l2 = rev tl app(hd,l2)
 rev # l2 = l2
 
 !
