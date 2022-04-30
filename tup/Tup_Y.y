@@ -25,14 +25,15 @@
 
 -- replace this with your productions:
 Prog : FuncDec '\n' '!' '\n' Prog       { $1 : $5 }
-| FuncTest                              { [$1] }
+     | FuncTest                         { [$1] }
 
 Pattern : '(' VarTupInner ')'           { $2 }
 
 PatternList : Pattern PatternList       { $1 : $2 }
-| Pattern                               { [$1] }
+            | Pattern                   { [$1] }
+            |                           { [  ] }
 
-FuncDecLine : id PatternList (pipe) Expr '=' Expr   { $1}
+FuncDecLine : id PatternList | Expr '=' Expr   { $1 }
 
 --FuncDec :
 
