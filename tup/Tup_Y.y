@@ -42,7 +42,7 @@ FuncDecLine : id PatternList '|' Expr '=' Expr   { FuncDecLine $1 $2 $4 $6 }
 --FuncTest : Expr '=' Expr
 
 Expr : '(' Expr ')'                          { $2 }
-| 
+     |
 
 VarTupInner : id ',' VarTupInner        { $1 : $3 }
             | id                        { [$1] }
