@@ -12,8 +12,8 @@ data Expression
     | Op_Expr Expression Operator Expression
     deriving (Eq, Show)
 
-data Var = Var String
-    deriving (Eq, Show)
+type Var = String
+    -- deriving (Eq, Show)
 
 data Null = Null
     deriving (Eq, Show)

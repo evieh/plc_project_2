@@ -27,7 +27,7 @@ import Tup
 -- replace this with your productions:
 Prog : FuncDecs '\n' '!' '\n' FuncTest       { Prog $1 $5 }
 
-Pattern : '(' VarTupInner ')'           { $2 }
+Pattern : '(' VarTupInner ')'           { Tup_Var $2 }
         | VAR                           { PatVar $1 }
         | '#'                           { Null_Pat Null }
 
@@ -55,9 +55,9 @@ FuncDecs : FuncDec '\n' '!' '\n' FuncDecs { $1 : $5 }
 FuncTest : VAR Expr '=' Expr                { FuncTest $1 $2 $4}
 
 Expr : VAR '(' ExprTupInner ')'         { Func_Call $1 $3  }
-     | VAR                              { Var $1           }
+     | VAR                              { Var_Expr $1           }
      | '(' Expr ')'                     { $2               }
-     | '(' ExprTupInner ')'             { $2               }
+     | '(' ExprTupInner ')'             { Tup_Expr $2      }
      | '#'                              { Null_Expr Null   }
      | NUM                              { Int_Expr $1      }
      | Expr Oper Expr                   { Op_Expr $1 $2 $3 }
