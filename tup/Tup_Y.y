@@ -33,7 +33,7 @@ PatternList : Pattern PatternList       { $1 : $2 }
             | Pattern                   { [$1] }
             |                           { [  ] }
 
-FuncDecLine : id PatternList | Expr '=' Expr   { $1 }
+FuncDecLine : id PatternList '|' Expr '=' Expr   { $1 }
 
 --FuncDec :
 
