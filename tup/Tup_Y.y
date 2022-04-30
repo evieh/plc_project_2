@@ -34,12 +34,15 @@ PatternList : Pattern PatternList       { $1 : $2 }
             | Pattern                   { [$1] }
             |                           { [] }
 
-FuncDecLine : id PatternList '|' Expr '=' Expr   { FuncDecLine $1 $2 $3 $4  }
+FuncDecLine : id PatternList '|' Expr '=' Expr   { FuncDecLine $1 $2 $4 $6 }
             | id PatternList '=' Expr            { FuncDecLine $1 $2 Null $4 }
 
 --FuncDec :
 
 --FuncTest : Expr '=' Expr
+
+Expr : '(' Expr ')'                          { $2 }
+| 
 
 VarTupInner : id ',' VarTupInner        { $1 : $3 }
             | id                        { [$1] }
