@@ -17,6 +17,9 @@ tokens :-
   \!                              { \s -> TupExclam }
   \|                              { \s -> TupPipe }
   \=                              { \s -> TupEquals }
+  \*                              { \s -> TupMul }
+  \+                              { \s -> TupAdd }
+  \-                              { \s -> TupSub }
 {
 
 -- The token type:
@@ -31,6 +34,9 @@ data Token
   | TupPipe
   | TupEquals
   | TupEndl
+  | TupMul
+  | TupAdd
+  | TupSub
            deriving (Eq,Show)
 
 }
