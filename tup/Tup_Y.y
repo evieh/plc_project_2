@@ -48,6 +48,34 @@ VarTupInner : id ',' VarTupInner        { $1 : $3 }
             | id                        { [$1] }
             |                           { [] }
 
+FuncDecLine : VAR PatternList (pipe) Expr '=' Expr { FuncDecLine $1 $2 $4 $6   }
+            | VAR PatternList '=' Expr             { FuncDecLine $1 $2 Null $4 }
+
+FuncDec : FuncDecLine  '\n' FuncDec     { $1 : $3 }
+        | FuncDecLine                   { [$1]    }
+        |                               { [ ]     }
+
+FuncDecs : FuncDec '\n' '!' '\n' FuncDecs { $1 : $5 }
+         | FuncDec                        { [$1]    }
+         |                                { [ ]     }
+         | Expr '=' Expr                  {         }
+
+Expr : VAR '(' ExprTupInner ')'         { Func_Call $1 $3  }
+     | VAR                              { Var $1           }
+     | '(' Expr ')'                     { $2               }
+     | '(' ExprTupInner ')'             { $2               }
+     | '#'                              { Null             }
+     | NUM                              { Int_Expr $1      }
+     | Expr Oper Expr                   { Op_Expr $1 $2 $3 }
+
+Oper : '+'                              { Add }
+     | '*'                              { Mul }
+     | '-'                              { Sub }
+
+ExprTupInner : VAR ',' ExprTupInner     { $1 : $3 }
+             | VAR                      { [$1] }
+             |                          { [ ] }
+
 {
 
 parseError :: [Token] -> a
