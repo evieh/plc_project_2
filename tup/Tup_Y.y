@@ -60,6 +60,8 @@ FuncDecs : FuncDec '\n' '!' '\n' FuncDecs { $1 : $5 }
          |                                { [ ]     }
          | Expr '=' Expr                  {         }
 
+FuncTest : VAR Expr '=' Expr                { FuncTest $1 $2 $4}
+
 Expr : VAR '(' ExprTupInner ')'         { Func_Call $1 $3  }
      | VAR                              { Var $1           }
      | '(' Expr ')'                     { $2               }
