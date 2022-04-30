@@ -16,6 +16,9 @@
     '('             { TupLParen }
     ')'             { TupRParen }
     '|'             { TupGuard }
+    '+'             { TupAdd }
+    '*'             { TupMul }
+    '-'             { TupSub }
     '\n'            { TupEndl }
     NUM             { TupInt $$ }
     VAR             { TupLabel $$ }
@@ -41,7 +44,7 @@ VarTupInner : VAR ',' VarTupInner        { $1 : $3 }
             | VAR                        { [$1] }
             |                            { [] }
 
-FuncDecLine : VAR PatternList (pipe) Expr '=' Expr { FuncDecLine $1 $2 $4 $6   }
+FuncDecLine : VAR PatternList '|' Expr '=' Expr { FuncDecLine $1 $2 $4 $6   }
             | VAR PatternList '=' Expr             { FuncDecLine $1 $2 Null $4 }
 
 FuncDec : FuncDecLine  '\n' FuncDec     { $1 : $3 }
