@@ -1,7 +1,7 @@
 {
-    module Tup_Y where
-    import Tokens
-    import Tup
+module Tup_Y where
+import Tokens
+import Tup
 }
 
 %name parseTup
@@ -22,10 +22,6 @@
     '\n'            { TupEndl }
     NUM             { TupInt $$ }
     VAR             { TupLabel $$ }
-
-    --'->'  { TokenArrow}
---%right '->'
-
 %%
 
 -- replace this with your productions:
