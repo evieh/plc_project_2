@@ -16,6 +16,7 @@
     '('             { TupLParen }
     ')'             { TupRParen }
     '|'             { TupGuard }
+    '\n'            { TupEndl }
     id              { TokenID $$ }
 
     --'->'  { TokenArrow}
@@ -26,13 +27,16 @@
 -- replace this with your productions:
 Prog : FuncDec '\n' '!' '\n' Prog       { $1 : $5 }
 | FuncTest                              { [$1] }
+|                                       { [] }
 
 Pattern : '(' VarTupInner ')'           { $2 }
 
 PatternList : Pattern PatternList       { $1 : $2 }
 | Pattern                               { [$1] }
+|                                       { [] }
 
-FuncDecLine : id PatternList (pipe) Expr '=' Expr   { $1}
+FuncDecLine : id PatternList '|' Expr '=' Expr   { FuncDecLine $1 $2 $3 $4  }
+| id PatternList '=' Expr                        { FuncDecLine $1 $2 Null $4 }                            
 
 --FuncDec :
 
@@ -40,6 +44,7 @@ FuncDecLine : id PatternList (pipe) Expr '=' Expr   { $1}
 
 VarTupInner : id ',' VarTupInner        { $1 : $3 }
 | id                                    { [$1] }
+|                                       { [] }
 
 {
 
