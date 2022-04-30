@@ -28,8 +28,8 @@ import Tup
 Prog : FuncDecs '\n' '!' '\n' FuncTest       { Prog $1 $5 }
 
 Pattern : '(' VarTupInner ')'           { $2 }
-        | VAR                           { Var $1 }
-        | '#'                           { Null }
+        | VAR                           { PatVar $1 }
+        | '#'                           { Null_Pat Null }
 
 PatternList : Pattern PatternList       { $1 : $2 }
             | Pattern                   { [$1] }
@@ -58,7 +58,7 @@ Expr : VAR '(' ExprTupInner ')'         { Func_Call $1 $3  }
      | VAR                              { Var $1           }
      | '(' Expr ')'                     { $2               }
      | '(' ExprTupInner ')'             { $2               }
-     | '#'                              { Null             }
+     | '#'                              { Null_Expr Null   }
      | NUM                              { Int_Expr $1      }
      | Expr Oper Expr                   { Op_Expr $1 $2 $3 }
 
