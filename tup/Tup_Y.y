@@ -15,7 +15,7 @@ import Tup
     ','             { TupComma }
     '('             { TupLParen }
     ')'             { TupRParen }
-    '|'             { TupGuard }
+    '|'             { TupPipe }
     '+'             { TupAdd }
     '*'             { TupMul }
     '-'             { TupSub }
