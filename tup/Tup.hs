@@ -22,12 +22,12 @@ data Operator = Add | Sub | Mul
     deriving (Eq, Ord, Show)
 
 data FuncDecLine = FuncDecLine Var [Pattern] Expression Expression
+    deriving (Eq, Show)
 
 type FuncDec = [FuncDecLine]
 
 data Prog = Prog [FuncDec] FuncTest
+    deriving (Eq, Show)
 
 data FuncTest = FuncTest Var [Expression] Expression
-
-
-
+    deriving (Eq, Show)
