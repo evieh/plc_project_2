@@ -1,0 +1,19 @@
+# 5/2 Mitziu (one hour)
+1. not aware of any way to get more helpful parse errors
+2. if you want to see just the tokens then in Main.hs use "putStrLn $ show $ alexScanTokens s"
+3. to get Tup_Y.hs run "happy Tup_Y.y"
+4. to get Tup_Y.info run "happy Tup_Y.y -i"
+5. tried using FuncDec and FuncDecLine instead of FuncDecs in Prog -> didn't work
+6. when running "cabal build" there are 6 shift/reduce and reduce/reduce conflict, given these links
+    * https://www.gnu.org/software/bison/manual/html_node/Shift_002fReduce.html
+    * https://www.gnu.org/software/bison/manual/html_node/Reduce_002fReduce.html#:~:text=A%20reduce%2Freduce%20conflict%20occurs,zero%20or%20more%20word%20groupings
+7. created append2.tup to try out simpler test cases
+8. we don't need to have '\n' tokens because it is white space insensitive, he seemed sure about this 
+    * didn't fix anything when removed but didn't create any other errors
+
+
+take-aways:
+1. no solution posted yet
+2. wasn't sure why it wasn't working -> looks like it should
+    * tokens were being found correctly and our tokens looked good
+3. either post a question in the discussions or create a pull request to get stump to look at it
