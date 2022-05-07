@@ -27,24 +27,30 @@ import Tup
 -- replace this with your productions:
 Prog : FuncDecs '\n' '!' '\n' FuncTest       { Prog $1 $5 }
 
-Pattern : '(' VarTupInner ')'           { Tup_Var $2 }
+Pattern : '(' VarTup ')'                { Tup_Var $2 }
         | VAR                           { PatVar $1 }
         | '#'                           { Null_Pat Null }
 
-PatternList : Pattern PatternList       { $1 : $2 }
-            | Pattern                   { [$1] }
-            |                           { [] }
+Patterns :                              { [] }
+         | PatternList                  { $1 }
 
-VarTupInner : VAR ',' VarTupInner        { $1 : $3 }
-            | VAR                        { [$1] }
-            |                            { [] }
+PatternList : Pattern                   { [$1] }
+            | Pattern PatternList       { $1 : $2 }
 
-FuncDecLine : VAR PatternList '|' Expr '=' Expr { FuncDecLine $1 $2 $4 $6   }
-            | VAR PatternList '=' Expr             { FuncDecLine $1 $2 (Null_Expr Null) $4 }
+VarTup :                                { [] }
+       | VarTupInner                    { $1 }
 
-FuncDec : FuncDecLine  '\n' FuncDec     { $1 : $3 }
-        | FuncDecLine                   { [$1]    }
-        |                               { [ ]     }
+VarTupInner : VAR                       { [$1] }
+            | VAR ',' VarTupInner       { $1 : $3 }
+
+FuncDecLine : VAR Patterns '|' Expr '=' Expr { FuncDecLine $1 $2 $4 $6   }
+            | VAR Patterns '=' Expr             { FuncDecLine $1 $2 (Null_Expr Null) $4 }
+
+FuncDecLines : FuncDecLine                    { [$1] }
+             | FuncDecLine '\n' FuncDecLines  { $1 : $3 }
+
+FuncDec :                               { [ ] }
+        | FuncDecLines                  { $1 }
 
 FuncDecs : FuncDec '\n' '!' '\n' FuncDecs { $1 : $5 }
          | FuncDec                        { [$1]    }
