@@ -25,7 +25,7 @@ import Tup
 %%
 
 -- replace this with your productions:
-Prog : FuncDecs '!' FuncTest       { Prog $1 $3 }
+Prog : AllFuncDecs '!' FuncTest       { Prog $1 $3 }
 
 Pattern : '(' VarTup ')'                { Tup_Var $2 }
         | VAR                           { PatVar $1 }
@@ -52,9 +52,11 @@ FuncDecLines : FuncDecLine              { [$1] }
 FuncDec :                               { [ ] }
         | FuncDecLines                  { $1 }
 
-FuncDecs : FuncDec '!' FuncDecs         { $1 : $3 }
-         |                              { [ ]     }
-         | FuncDec                      { [$1]    }
+FuncDecs : FuncDec                      { [$1]    }
+         | FuncDec '!' FuncDecs         { $1 : $3 }
+
+AllFuncDecs :                           { [ ] }
+            | FuncDecs                  { $1 }
 
 FuncTest : VAR ExprList '=' Expr        { FuncTest $1 $2 $4}
 
