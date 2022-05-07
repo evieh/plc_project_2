@@ -7,6 +7,7 @@ module Tokens where
 tokens :-
 
   [\n]                            { \s -> TupEndl }
+  -- [\n]                            ;
   $white+                         ;
   [a-z][a-z0-9]*                  { \s -> TupLabel s }
   \-?[0-9]+                        { \s -> TupInt (read s) }

@@ -19,13 +19,13 @@ import Tup
     '+'             { TupAdd }
     '*'             { TupMul }
     '-'             { TupSub }
-    '\n'            { TupEndl }
+    -- '\n'            { TupEndl }
     NUM             { TupInt $$ }
     VAR             { TupLabel $$ }
 %%
 
 -- replace this with your productions:
-Prog : FuncDecs '\n' '!' '\n' FuncTest       { Prog $1 $5 }
+Prog : FuncDecs '!' FuncTest       { Prog $1 $3 }
 
 Pattern : '(' VarTup ')'                { Tup_Var $2 }
         | VAR                           { PatVar $1 }
@@ -44,19 +44,19 @@ VarTupInner : VAR                       { [$1] }
             | VAR ',' VarTupInner       { $1 : $3 }
 
 FuncDecLine : VAR Patterns '|' Expr '=' Expr { FuncDecLine $1 $2 $4 $6   }
-            | VAR Patterns '=' Expr             { FuncDecLine $1 $2 (Null_Expr Null) $4 }
+            | VAR Patterns '=' Expr          { FuncDecLine $1 $2 (Null_Expr Null) $4 }
 
-FuncDecLines : FuncDecLine                    { [$1] }
-             | FuncDecLine '\n' FuncDecLines  { $1 : $3 }
+FuncDecLines : FuncDecLine              { [$1] }
+             | FuncDecLine FuncDecLines { $1 : $2 }
 
 FuncDec :                               { [ ] }
         | FuncDecLines                  { $1 }
 
-FuncDecs : FuncDec '\n' '!' '\n' FuncDecs { $1 : $5 }
-         | FuncDec                        { [$1]    }
-         |                                { [ ]     }
+FuncDecs : FuncDec '!' FuncDecs         { $1 : $3 }
+         |                              { [ ]     }
+         | FuncDec                      { [$1]    }
 
-FuncTest : VAR ExprList '=' Expr                { FuncTest $1 $2 $4}
+FuncTest : VAR ExprList '=' Expr        { FuncTest $1 $2 $4}
 
 ExprList : Expr ExprList                { $1 : $2 }
          | Expr                         { [$1] }
