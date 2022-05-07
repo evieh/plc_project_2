@@ -58,16 +58,18 @@ FuncDecs : FuncDec                      { [$1]    }
 AllFuncDecs :                           { [ ] }
             | FuncDecs                  { $1 }
 
-FuncTest : VAR ExprList '=' Expr        { FuncTest $1 $2 $4}
+FuncTest : VAR Exprs '=' Expr        { FuncTest $1 $2 $4}
 
-ExprList : Expr ExprList                { $1 : $2 }
-         | Expr                         { [$1] }
-         |                              { [] }
+Exprs :                                 { [ ] }
+      | ExprList                        { $1 }
 
-Expr : VAR '(' ExprTupInner ')'         { Func_Call $1 $3  }
+ExprList : Expr                         { [$1] }
+         | Expr ExprList                { $1 : $2 }
+
+Expr : VAR '(' ExprTup ')'              { Func_Call $1 $3  }
      | VAR                              { Var_Expr $1           }
      | '(' Expr ')'                     { $2               }
-     | '(' ExprTupInner ')'             { Tup_Expr $2      }
+     | '(' ExprTup ')'                  { Tup_Expr $2      }
      | '#'                              { Null_Expr Null   }
      | NUM                              { Int_Expr $1      }
      | Expr Oper Expr                   { Op_Expr $1 $2 $3 }
@@ -76,9 +78,11 @@ Oper : '+'                              { Add }
      | '*'                              { Mul }
      | '-'                              { Sub }
 
-ExprTupInner : Expr ',' ExprTupInner     { $1 : $3 }
-             | Expr                      { [$1] }
-             |                          { [ ] }
+ExprTup :                                { [ ] }
+        | ExprTupInner                   { $1 }
+
+ExprTupInner : Expr                      { [$1] }
+             | Expr ',' ExprTupInner     { $1 : $3 }
 
 {
 
