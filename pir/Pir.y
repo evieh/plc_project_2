@@ -8,9 +8,24 @@
 %error { parseError }
 
 %token
-    '('  { TokenLParen }
-    ')'  { TokenRParen }
-    '->'  { TokenArrow}
+    endl            { PirEndl $$ }
+    '#'             { PirNull }
+    ';'             { PirSemi }
+    '.'             { PirSub }
+    '{'             { PirLBrack }
+    '}'             { PirRBrack }
+    '?'             { PirQuery }
+    '='             { PirEquals }
+    '!'             { PirExclam }
+    ','             { PirComma }
+    '('             { PirLParen }
+    ')'             { PirRParen }
+    '|'             { PirPipe }
+    '+'             { PirAdd }
+    '*'             { PirMul }
+    '-'             { PirSub }
+    NUM             { PirInt $$ }
+    VAR             { PirLabel $$ }
 
 %right '->'
 
