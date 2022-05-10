@@ -74,7 +74,7 @@ SubExpr:
        VAR                              { Var_Expr $1      }
      | '#'                              { Null_Expr Null   }
      | NUM                              { Int_Expr $1      }
-     | Expr Oper Expr                   { Op_Expr $1 $2 $3 }
+     | SubExpr Oper SubExpr                   { Op_Expr $1 $2 $3 }
      | '(' Expr ')'                     { $2               }
      | '(' ExprTup ')'                  { Tup_Expr $2      }
 
