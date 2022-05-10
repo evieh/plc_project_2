@@ -67,14 +67,14 @@ FuncDecs
 
 -- FuncTest : Expr '=' Expr        { FuncTest $1 $2 $4}
 
-Expr : VAR Expr Expr                    { Func_Call $1 $2 $3 }
-     | VAR                              { Var_Expr $1      }
+Expr : VAR SubExpr SubExpr                    { Func_Call $1 $2 $3 }
+     | SubExpr {$1}
+
+SubExpr:
+       VAR                              { Var_Expr $1      }
      | '#'                              { Null_Expr Null   }
      | NUM                              { Int_Expr $1      }
      | Expr Oper Expr                   { Op_Expr $1 $2 $3 }
-     -- | Expr '+' Expr                   { Op_Expr $1 Add $3 }
-     -- | Expr '*' Expr                   { Op_Expr $1 Mul $3 }
-     -- | Expr '-' Expr                   { Op_Expr $1 Sub $3 }
      | '(' Expr ')'                     { $2               }
      | '(' ExprTup ')'                  { Tup_Expr $2      }
 
