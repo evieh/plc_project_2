@@ -9,6 +9,7 @@ import Tup
 %error { parseError }
 
 %token
+    endl            { TupEndl $$ }
     '#'             { TupNull }
     '='             { TupEquals }
     '!'             { TupExclam }
@@ -19,45 +20,54 @@ import Tup
     '+'             { TupAdd }
     '*'             { TupMul }
     '-'             { TupSub }
-    -- '\n'            { TupEndl }
     NUM             { TupInt $$ }
     VAR             { TupLabel $$ }
 %%
 
 -- replace this with your productions:
-Prog : AllFuncDecs FuncTest       { Prog $1 $2 }
 
-Pattern : '(' VarTup ')'                { Tup_Var $2 }
-        | VAR                           { PatVar $1 }
-        | '#'                           { Null_Pat Null }
+Prog
+: FuncDecs endl Expr '=' Expr       { Prog $1 $3 $5 }
+| FuncDecs endl Expr '=' Expr endl  { Prog $1 $3 $5 }
 
-Patterns :                              { [] }
-         | PatternList                  { $1 }
-PatternList : Pattern                   { [$1] }
-            | Pattern PatternList       { $1 : $2 }
+Pattern
+: '(' VarTup ')'                { Tup_Var $2 }
+| VAR                           { PatVar $1 }
+| '#'                           { Null_Pat Null }
 
-VarTup :                                { [] }
-       | VarTupInner                    { $1 }
+Patterns
+:                              { [ ] }
+| PatternList                  { $1 }
+PatternList
+: Pattern                   { [$1] }
+| Pattern PatternList       { $1 : $2 }
 
-VarTupInner : VAR                       { [$1] }
-            | VAR ',' VarTupInner       { $1 : $3 }
+VarTup
+:                                { [ ] }
+| VarTupInner                    { $1 }
 
-FuncDecLine : VAR Patterns '|' Expr '=' Expr { FuncDecLine $1 $2 $4 $6   }
-            | VAR Patterns '=' Expr          { FuncDecLine $1 $2 (Null_Expr Null) $4 }
+VarTupInner
+: VAR                       { [$1] }
+| VAR ',' VarTupInner       { $1 : $3 }
 
-FuncDec : FuncDecLines '!'                 { $1 }
-FuncDecLines : FuncDecLine              { [$1] }
-             | FuncDecLine FuncDecLines { $1 : $2 }
+FuncDecLine
+: VAR Patterns '|' Expr '=' Expr endl { FuncDecLine $1 $2 $4 $6   }
+| VAR Patterns '=' Expr endl          { FuncDecLine $1 $2 (Null_Expr Null) $4 }
 
-AllFuncDecs : FuncDecs                  { $1 }
-FuncDecs :
-  FuncDec                      { [$1]    }
-         |
-  FuncDec FuncDecs         { $1 : $2 }
+FuncDec
+: FuncDecLines '!'  { $1 }
 
-FuncTest : VAR Exprs '=' Expr        { FuncTest $1 $2 $4}
+FuncDecLines
+: FuncDecLine               { [$1] }
+| FuncDecLine  FuncDecLines { $1 : $2 }
 
-Expr : VAR '(' ExprTup ')'              { Func_Call $1 $3  }
+FuncDecs
+: FuncDec                      { [$1]    }
+| FuncDec FuncDecs         { $1 : $2 }
+
+-- FuncTest : Expr '=' Expr        { FuncTest $1 $2 $4}
+
+Expr : VAR Expr Expr                    { Func_Call $1 $2 $3 }
      | VAR                              { Var_Expr $1      }
      | '#'                              { Null_Expr Null   }
      | NUM                              { Int_Expr $1      }
@@ -67,11 +77,6 @@ Expr : VAR '(' ExprTup ')'              { Func_Call $1 $3  }
      -- | Expr '-' Expr                   { Op_Expr $1 Sub $3 }
      | '(' Expr ')'                     { $2               }
      | '(' ExprTup ')'                  { Tup_Expr $2      }
-
-Exprs :                                 { [ ] }
-      | ExprList                        { $1 }
-ExprList : Expr                         { [$1] }
-         | Expr ExprList                { $1 : $2 }
 
 Oper : '+'                              { Add }
      | '*'                              { Mul }

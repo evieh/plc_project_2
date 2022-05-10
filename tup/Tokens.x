@@ -6,7 +6,7 @@ module Tokens where
 
 tokens :-
 
-  [\n]                            { \s -> TupEndl }
+  [\n]+                            { \s -> TupEndl s}
   -- [\n]                            ;
   $white+                         ;
   [a-z][a-z0-9]*                  { \s -> TupLabel s }
@@ -34,7 +34,7 @@ data Token
   | TupExclam
   | TupPipe
   | TupEquals
-  | TupEndl
+  | TupEndl String
   | TupMul
   | TupAdd
   | TupSub

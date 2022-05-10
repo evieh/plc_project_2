@@ -4,7 +4,7 @@ data Pattern = PatVar Var | Null_Pat Null | Tup_Var [Var]
     deriving (Eq, Show)
 
 data Expression
-    = Func_Call Var [Expression]
+    = Func_Call Var Expression Expression
     | Var_Expr Var
     | Tup_Expr [Expression]
     | Int_Expr Int
@@ -26,8 +26,8 @@ data FuncDecLine = FuncDecLine Var [Pattern] Expression Expression
 
 type FuncDec = [FuncDecLine]
 
-data Prog = Prog [FuncDec] FuncTest
+data Prog = Prog [FuncDec] Expression Expression
     deriving (Eq, Show)
 
-data FuncTest = FuncTest Var [Expression] Expression
+data FuncTest = FuncTest Expression Expression
     deriving (Eq, Show)
