@@ -10,6 +10,7 @@ data Expression
     | NullTest_Expr Expression
     | Op_Expr Expression Operator Expression
     | Ref_Expr Reference
+    | Pair_Expr Var Var
     deriving (Eq, Show)
 
 -- data Expression
