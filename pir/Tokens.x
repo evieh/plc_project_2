@@ -32,16 +32,13 @@ tokens :-
 
 -- The token type:
 data Token
- = PirLabel String
- | PirInt Int
- | PirLParen
+ = PirLParen
  | PirRParen
  | PirLBrack
  | PirRBrack
  | PirComma
  | PirNull
  | PirExclam
- | PirQuery
  | PirSub
  | PirSemi
  | PirPipe
@@ -49,6 +46,9 @@ data Token
  | PirMul
  | PirAdd
  | PirSub
-          deriving (Eq,Show)
-
-}
+ | PirIf
+ | PirNullTest
+ | PirElse
+ | PirReturn
+ | PirLabel String
+ | PirInt Int
