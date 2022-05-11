@@ -7,6 +7,9 @@ data Expression
     = Func_Call Var Var Var
     | Int_Expr Int
     | Null_Expr Null
+    | NullTest_Expr Expression
+    | Op_Expr Expression Operator Expression
+    deriving (Eq, Show)
 
 -- data Expression
 --     = Func_Call Var Var Var
