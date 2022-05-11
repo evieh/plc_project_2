@@ -1,6 +1,6 @@
 {
-    module Pir_Y where
-    import Tokens
+module Pir_Y where
+import Tokens
 }
 
 %name parsePir
@@ -8,13 +8,11 @@
 %error { parseError }
 
 %token
-    endl            { PirEndl $$ }
     null            { PirNull }
     ';'             { PirSemi }
     '.'             { PirIndex }
     '{'             { PirLBrack }
     '}'             { PirRBrack }
-    '?'             { PirQuery }
     '='             { PirEquals }
     '!'             { PirExclam }
     ','             { PirComma }
@@ -74,7 +72,7 @@ FuncDec: VAR '(' VAR ',' VAR ')' '{' Statements '}'  { $1 $3 $5 $8 }
 Expr : VAR '(' VAR ',' VAR ')'          { Func_Call $1 $3 $5 }
      | NUM                              { Int_Expr $1      }
      | null                             { Null_Expr Null   } -- ? maybe add token?
-     | null '?' '(' VAR ')'             { NullTest_Expr $4 }
+     | nullTest '(' VAR ')'             { NullTest_Expr $4 }
      | Expr Oper Expr                   { Op_Expr $1 $2 $3 }
     --  | '(' Expr ')'                     { $2               }
     --  | '(' ExprTup ')'                  { Tup_Expr $2      }
