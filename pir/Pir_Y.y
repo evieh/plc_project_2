@@ -83,6 +83,9 @@ ExprTup :                                { [ ] }
 ExprTupInner : Expr ',' Expr             { $1 : [$3] }
              | Expr ',' ExprTupInner     { $1 : $3 }
 
+Ref : VAR                                { Ref $1 }
+    | VAR '.' NUM                        { SubRef $1 $3 }
+
 {
 
 parseError :: [Token] -> a
