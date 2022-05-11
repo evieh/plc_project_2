@@ -39,7 +39,7 @@ Prog
 : FuncDecs '!' Statements '!' Expr '=' Expr       { Prog $1 $3 $5 $7 }
 
 Statement
-: if Expr '{' Statements '}' else '{' Statements '}'     { If $2 $4 $8 }
+: if Expr '{' Statements '}' else '{' Statements '}'    { If $2 $4 $8 }
 | Reference '=' Expr ';'                                { Assignment $1 $3 }
 | return Expr ';'                                       { Return $2 }
 
@@ -67,7 +67,7 @@ FuncDecs
 : FuncDec                      { [$1]    }
 | FuncDec FuncDecs         { $1 : $2 }
 
-FuncDec: VAR '(' VAR ',' VAR ')' '{' Statements '}'  { $1 $3 $5 $8 }
+FuncDec: VAR '(' VAR ',' VAR ')' '{' Statements '}'  { FuncDec $1 $3 $5 $8 }
 
 -- FuncTest : Expr '=' Expr        { FuncTest $1 $2 $4}
 
@@ -75,7 +75,7 @@ Expr : VAR '(' VAR ',' VAR ')'          { Func_Call $1 $3 $5 }
      | NUM                              { Int_Expr $1      }
      | Reference                        { Ref_Expr $1 }
      | null                             { Null_Expr Null   } -- ? maybe add token?
-     | nullTest '(' Expr ')'             { NullTest_Expr $3 }
+     | nullTest '(' Expr ')'            { NullTest_Expr $3 }
      | Expr Oper Expr                   { Op_Expr $1 $2 $3 }
      | Reference                        { Ref_Expr $1 }
      | '(' VAR ',' VAR ')'              { Pair_Expr $2 $4 }

@@ -52,5 +52,6 @@ data Token
  | PirReturn
  | PirLabel String
  | PirInt Int
+    deriving (Eq, Show)
 
 }

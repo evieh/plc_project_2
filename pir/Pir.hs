@@ -40,5 +40,5 @@ type Var = String
 data Null = Null
     deriving (Eq, Show)
 
-data FuncDec = FuncDec Var Var [Statement]
+data FuncDec = FuncDec Var Var Var [Statement]
     deriving (Eq, Show)
