@@ -49,10 +49,6 @@ VarTupInner
 : VAR                       { [$1] }
 | VAR ',' VarTupInner       { $1 : $3 }
 
-FuncDecLine
-: VAR Patterns '|' Expr '=' Expr endl { FuncDecLine $1 $2 $4 $6   }
-| VAR Patterns '=' Expr endl          { FuncDecLine $1 $2 (Null_Expr Null) $4 }
-
 FuncDecs
 : FuncDec                      { [$1]    }
 | FuncDec FuncDecs         { $1 : $2 }
