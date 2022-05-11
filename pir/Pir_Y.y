@@ -1,6 +1,8 @@
 {
 module Pir_Y where
 import Tokens
+import Pir
+
 }
 
 %name parsePir
