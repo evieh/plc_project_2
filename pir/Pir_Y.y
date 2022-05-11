@@ -11,7 +11,7 @@
     endl            { PirEndl $$ }
     null            { PirNull }
     ';'             { PirSemi }
-    '.'             { PirSub }
+    '.'             { PirIndex }
     '{'             { PirLBrack }
     '}'             { PirRBrack }
     '?'             { PirQuery }

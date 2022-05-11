@@ -15,7 +15,7 @@ tokens :-
   \,                              { \s -> PirComma }
   null                            { \s -> PirNull }
   \!                              { \s -> PirExclam }
-  \.                              { \s -> PirSub }
+  \.                              { \s -> PirIndex }
   \;                              { \s -> PirSemi }
   \|                              { \s -> PirPipe }
   \=                              { \s -> PirEquals }
@@ -38,13 +38,14 @@ data Token
  | PirRBrack
  | PirComma
  | PirNull
+ | PirIndex
  | PirExclam
- | PirSub
  | PirSemi
  | PirPipe
  | PirEquals
  | PirMul
  | PirAdd
+ | PirSub
  | PirIf
  | PirNullTest
  | PirElse
