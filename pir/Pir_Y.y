@@ -1,5 +1,5 @@
 {
-    module Pir where
+    module Pir_Y where
     import Tokens
 }
 
@@ -9,7 +9,7 @@
 
 %token
     endl            { PirEndl $$ }
-    '#'             { PirNull }
+    null            { PirNull }
     ';'             { PirSemi }
     '.'             { PirSub }
     '{'             { PirLBrack }
@@ -36,10 +36,10 @@
 
 -- replace this with your productions:
 Prog
-: FuncDecs '!' Inits '!' Expr '=' Expr       { Prog $1 $3 $5 $7 }
+: FuncDecs '!' Statements '!' Expr '=' Expr       { Prog $1 $3 $5 $7 }
 
 Statement
-: if Expr '{' Statements '}' else '{' Statments '}'     { If $2 $4 $8 }
+: if Expr '{' Statements '}' else '{' Statements '}'     { If $2 $4 $8 }
 | Reference '=' Expr ';'                                { Assignment $1 $3 }
 | return Expr ';'                                       { Return $2 }
 

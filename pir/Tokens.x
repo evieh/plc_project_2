@@ -13,7 +13,7 @@ tokens :-
   \{                              { \s -> PirLBrack }
   \}                              { \s -> PirRBrack }
   \,                              { \s -> PirComma }
-  \#                              { \s -> PirNull }
+  null                            { \s -> PirNull }
   \!                              { \s -> PirExclam }
   \.                              { \s -> PirSub }
   \;                              { \s -> PirSemi }
@@ -52,3 +52,5 @@ data Token
  | PirReturn
  | PirLabel String
  | PirInt Int
+
+}
