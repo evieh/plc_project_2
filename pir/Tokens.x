@@ -31,7 +31,24 @@ tokens :-
 {
 
 -- The token type:
-data Token = TokenArrow | TokenLParen | TokenRParen
-           deriving (Eq,Show)
+data Token
+ = PirLabel String
+ | PirInt Int
+ | PirLParen
+ | PirRParen
+ | PirLBrack
+ | PirRBrack
+ | PirComma
+ | PirNull
+ | PirExclam
+ | PirQuery
+ | PirSub
+ | PirSemi
+ | PirPipe
+ | PirEquals
+ | PirMul
+ | PirAdd
+ | PirSub
+          deriving (Eq,Show)
 
 }
