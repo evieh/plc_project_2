@@ -45,7 +45,6 @@ data Token
  | PirEquals
  | PirMul
  | PirAdd
- | PirSub
  | PirIf
  | PirNullTest
  | PirElse
