@@ -53,16 +53,11 @@ FuncDecLine
 : VAR Patterns '|' Expr '=' Expr endl { FuncDecLine $1 $2 $4 $6   }
 | VAR Patterns '=' Expr endl          { FuncDecLine $1 $2 (Null_Expr Null) $4 }
 
-FuncDec
-: FuncDecLines '!'  { $1 }
-
-FuncDecLines
-: FuncDecLine               { [$1] }
-| FuncDecLine  FuncDecLines { $1 : $2 }
-
 FuncDecs
 : FuncDec                      { [$1]    }
 | FuncDec FuncDecs         { $1 : $2 }
+
+FuncDec: VAR '(' VAR ',' VAR ')' '{' Statements '}'  { $1 $3 $5 $8 }
 
 -- FuncTest : Expr '=' Expr        { FuncTest $1 $2 $4}
 
@@ -83,8 +78,6 @@ ExprTup :                                { [ ] }
 ExprTupInner : Expr ',' Expr             { $1 : [$3] }
              | Expr ',' ExprTupInner     { $1 : $3 }
 
-Ref : VAR                                { Ref $1 }
-    | VAR '.' NUM                        { SubRef $1 $3 }
 
 {
 
