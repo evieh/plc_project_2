@@ -8,8 +8,6 @@ tokens :-
 
   -- [\n]+                            { \s -> TupEndl s}
   $white+                         ;
-  [a-z][a-z0-9]*                  { \s -> PirLabel s }
-  \-?[0-9]+                       { \s -> PirInt (read s) }
   \(                              { \s -> PirLParen }
   \)                              { \s -> PirRParen }
   \{                              { \s -> PirLBrack }
@@ -17,7 +15,6 @@ tokens :-
   \,                              { \s -> PirComma }
   \#                              { \s -> PirNull }
   \!                              { \s -> PirExclam }
-  \?                              { \s -> PirQuery }
   \.                              { \s -> PirSub }
   \;                              { \s -> PirSemi }
   \|                              { \s -> PirPipe }
@@ -25,6 +22,12 @@ tokens :-
   \*                              { \s -> PirMul }
   \+                              { \s -> PirAdd }
   \-                              { \s -> PirSub }
+  if                              { \s -> PirIf }
+  null\?                          { \s -> PirNullTest }
+  else                            { \s -> PirElse }
+  return                          { \s -> PirReturn }
+  [a-z][a-z0-9]*                  { \s -> PirLabel s }
+  \-?[0-9]+                       { \s -> PirInt (read s) }
 {
 
 -- The token type:

@@ -3,9 +3,6 @@ module Pir where
 data Prog = Prog [FuncDec] [Statement] Expression Expression
     deriving (Eq, Show)
 
-data Instruction = Statement Statement | Expression Expression | Reference Reference
-    deriving (Eq, Show)
-
 data Expression
     = Func_Call Var Expression Expression
     | Var_Expr Var
@@ -20,7 +17,7 @@ data Operator = Add | Sub | Mul
     deriving (Eq, Ord, Show)
 
 data Statement
-  = If Expression [Instruction] [Instruction]
+  = If Expression [Statement] [Statement]
   | Assignment Reference Expression
   | Return Expression
     deriving (Eq, Show)
@@ -33,5 +30,5 @@ type Var = String
 data Null = Null
     deriving (Eq, Show)
 
-data FuncDec = FuncDec Var Var [Instruction]
+data FuncDec = FuncDec Var Var [Statement]
     deriving (Eq, Show)
