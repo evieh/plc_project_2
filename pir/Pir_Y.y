@@ -73,8 +73,9 @@ FuncDec: VAR '(' VAR ',' VAR ')' '{' Statements '}'  { $1 $3 $5 $8 }
 
 Expr : VAR '(' VAR ',' VAR ')'          { Func_Call $1 $3 $5 }
      | NUM                              { Int_Expr $1      }
+     | Reference                        { Ref_Expr $1 }
      | null                             { Null_Expr Null   } -- ? maybe add token?
-     | nullTest '(' VAR ')'             { NullTest_Expr $4 }
+     | nullTest '(' Expr ')'             { NullTest_Expr $3 }
      | Expr Oper Expr                   { Op_Expr $1 $2 $3 }
     --  | '(' Expr ')'                     { $2               }
     --  | '(' ExprTup ')'                  { Tup_Expr $2      }

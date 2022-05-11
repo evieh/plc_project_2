@@ -9,6 +9,7 @@ data Expression
     | Null_Expr Null
     | NullTest_Expr Expression
     | Op_Expr Expression Operator Expression
+    | Ref_Expr Reference
     deriving (Eq, Show)
 
 -- data Expression
