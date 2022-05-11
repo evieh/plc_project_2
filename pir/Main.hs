@@ -7,6 +7,6 @@ main :: IO ()
 main = do
   args <- getArgs
   s <- readFile $ head args
-  putStrLn $ show $ alexScanTokens s
+  putStrLn $ show $ parsePir $ alexScanTokens s
   -- writeFile "parsed.pir" ""
   -- writeFile "parsed.pir" (show $ parsePir $ alexScanTokens s)
