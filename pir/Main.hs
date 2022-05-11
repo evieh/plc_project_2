@@ -1,12 +1,12 @@
-import Pir_Y -- tup.y
+import Pir_Y -- Pir_Y.y
 import Tokens -- tokens.x
-import Pir -- Tup.hs
+import Pir -- Pir.hs
 import System.Environment
 
 main :: IO ()
 main = do
   args <- getArgs
   s <- readFile $ head args
-  putStrLn $ show $ parsePir $ alexScanTokens s
+  putStrLn $ show $ alexScanTokens s
   -- writeFile "parsed.pir" ""
-  -- writeFile "parsed.tup" (show $ parsePir $ alexScanTokens s)
+  -- writeFile "parsed.pir" (show $ parsePir $ alexScanTokens s)
