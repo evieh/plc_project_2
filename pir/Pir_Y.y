@@ -56,14 +56,6 @@ Reference
 : VAR                           { Ref $1 }
 | VAR '.' NUM                   { SubRef $1 $3 }
 
-VarTup
-:                                { [ ] }
-| VarTupInner                    { $1 }
-
-VarTupInner
-: VAR                       { [$1] }
-| VAR ',' VarTupInner       { $1 : $3 }
-
 FuncDecs
 : FuncDec                      { [$1]    }
 | FuncDec FuncDecs         { $1 : $2 }
