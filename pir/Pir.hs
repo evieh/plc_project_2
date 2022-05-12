@@ -11,6 +11,7 @@ data Expression
     | Op_Expr Expression Operator Expression
     | Ref_Expr Reference
     | Pair_Expr Var Var
+    | Expr_Expr Expression Expression
     deriving (Eq, Show)
 
 -- data Expression
