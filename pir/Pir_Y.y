@@ -53,8 +53,16 @@ Statements
 | StatementLines                { $1 }                 
 
 Reference
-: VAR                           { Ref $1 }
-| VAR '.' NUM                   { SubRef $1 $3 }
+-- : VAR                           { Ref $1 [] }
+: VAR SubIndexList              { Ref $1 $2 }
+
+SubIndexes
+: '.' NUM                       { [$2] }
+| '.' NUM SubIndexes            { $2 : $3 }
+
+SubIndexList
+:                               { [ ] }
+| SubIndexes                    { $1 }
 
 FuncDecs
 : FuncDec                      { [$1]    }

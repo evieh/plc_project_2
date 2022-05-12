@@ -33,7 +33,7 @@ data Statement
   | Return Expression
     deriving (Eq, Show)
 
-data Reference = Ref Var | SubRef Var Int
+data Reference = Ref Var [Int]
     deriving (Eq, Show)
 
 type Var = String
