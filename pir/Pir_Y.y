@@ -20,7 +20,7 @@ import Pir
     ','             { PirComma }
     '('             { PirLParen }
     ')'             { PirRParen }
-    '|'             { PirPipe }
+    -- '|'             { PirPipe }
     '+'             { PirAdd }
     '*'             { PirMul }
     '-'             { PirSub }

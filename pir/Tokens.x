@@ -18,7 +18,7 @@ tokens :-
   \!                              { \s -> PirExclam }
   \.                              { \s -> PirIndex }
   \;                              { \s -> PirSemi }
-  \|                              { \s -> PirPipe }
+  -- \|                              { \s -> PirPipe }
   \=                              { \s -> PirEquals }
   \*                              { \s -> PirMul }
   \+                              { \s -> PirAdd }
