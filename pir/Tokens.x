@@ -8,6 +8,7 @@ tokens :-
 
   -- [\n]+                            { \s -> TupEndl s}
   $white+                         ;
+  "--".*                          ;
   \(                              { \s -> PirLParen }
   \)                              { \s -> PirRParen }
   \{                              { \s -> PirLBrack }
