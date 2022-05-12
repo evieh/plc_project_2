@@ -10,7 +10,7 @@
 
 path (t,p) {
   if null?(t) {
-    return #;
+    return null;
   } else {
     if null?(p) {
       return t.1;
@@ -34,13 +34,13 @@ path (t,p) {
 -- create a tree q that has 1 at the root (q), and then
 -- descends to singleton nodes (x and y) holding 2 and 3
 -- respectively.
-e = (#,#);
+e = (null,null);
 x = (2,e);
 y = (3,e);
 z = (x,y);
 q = (1,z);
 
-b = (1,#);
+b = (1,null);
 
 ! 
 
