@@ -13,7 +13,7 @@ tokens :-
   \{                              { \s -> PirLBrack }
   \}                              { \s -> PirRBrack }
   \,                              { \s -> PirComma }
-  \#                            { \s -> PirNull }
+  null                            { \s -> PirNull }
   \!                              { \s -> PirExclam }
   \.                              { \s -> PirIndex }
   \;                              { \s -> PirSemi }

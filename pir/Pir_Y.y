@@ -10,7 +10,7 @@ import Pir
 %error { parseError }
 
 %token
-    null            { PirNull }
+    --null            { PirNull }
     ';'             { PirSemi }
     '.'             { PirIndex }
     '{'             { PirLBrack }
@@ -24,7 +24,7 @@ import Pir
     '+'             { PirAdd }
     '*'             { PirMul }
     '-'             { PirSub }
-    '#'             {PirNull }
+    null            { PirNull }
     if              { PirIf }
     nullTest        { PirNullTest }
     else            { PirElse }
@@ -75,7 +75,7 @@ FuncDec: VAR '(' VAR ',' VAR ')' '{' Statements '}'  { FuncDec $1 $3 $5 $8 }
 Expr : VAR '(' VAR ',' VAR ')'          { Func_Call $1 $3 $5 }
      | NUM                              { Int_Expr $1      }
      | Reference                        { Ref_Expr $1 }
-     | '#'                             { Null_Expr Null   } -- ? maybe add token?
+     | null                             { Null_Expr Null   } -- ? maybe add token?
      | nullTest '(' Expr ')'            { NullTest_Expr $3 }
      | Expr Oper Expr                   { Op_Expr $1 $2 $3 }
      | Reference                        { Ref_Expr $1 }
